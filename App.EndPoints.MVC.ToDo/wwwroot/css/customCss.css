@@ -1,0 +1,494 @@
+﻿@font-face {
+    font-family: "vf";
+    src: url("/fonts/Vazir.ttf")
+}
+
+@font-face {
+    font-family: "vbf";
+    src: url("/fonts/Vazir-Bold.ttf")
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    outline: none;
+    border: none;
+    direction: rtl;
+}
+
+html {
+    font-size: 16px;
+    font-family: vf;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    direction: rtl;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 0 20px #000;
+    margin-bottom: 30px;
+}
+
+ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li {
+    margin: 10px;
+}
+
+li a {
+    margin-left: 15px;
+    font-size: .9rem;
+    font-family: vbf;
+    color: #1e1e1e;
+    display: flex;
+    align-items: center;
+}
+
+#login {
+    padding: 5px 15px;
+    color: #eaeaea;
+    background-color: darkblue;
+    border-radius: 10px;
+    margin-left: 20px;
+    font-size: 0.8rem;
+    font-family: vf;
+}
+.inside{
+    display:flex;
+}
+
+.dropdown-menu {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    background-color: #e1e1e2;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
+    width: 200px;
+    z-index: 1;
+    position: absolute;
+}
+
+.dd-item {
+    padding: 12px 16px;
+}
+
+li:hover > a {
+    color: #eaea12;
+}
+
+.item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dd-item:hover {
+    background-color: #e1e1e1;
+}
+
+#login:hover {
+    cursor: pointer;
+}
+
+main {
+    flex: 1;
+    margin: 5px auto;
+    width: 90%;
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: dodgerblue;
+    color: white;
+    border-radius: 50px;
+}
+
+.banner h1 {
+    margin: 40px 0 auto;
+    font-family: vbf;
+}
+
+.banner button {
+    margin-top: 30px;
+    margin-bottom: 70px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #fffffe;
+    color: dodgerblue;
+    font-size: 1.2rem;
+    font-family: vbf;
+}
+
+/*Category*/
+#category {
+    width: 100%;
+    display: flex;
+    margin-bottom: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+#category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.cat-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.catItem-img {
+    width: 56px;
+    height: 56px;
+    margin: auto;
+    display: block;
+    border-radius: 20px;
+}
+
+.cat-item {
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    border-radius: 10px;
+    flex: 1 1 100px;
+}
+
+.bg-1 {
+    background-color: limegreen
+}
+
+.bg-2 {
+    background-color: orange
+}
+
+.bg-3 {
+    background-color: darkred
+}
+
+.bg-4 {
+    background-color: cornflowerblue
+}
+
+.bg-5 {
+    background-color: deepskyblue
+}
+
+#newBooks {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 90px auto;
+}
+
+/*Book*/
+
+#newBooks h2 {
+    margin-bottom: 40px;
+}
+
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+    border-radius: 20px;
+    padding: 10px 15px;
+    margin-left: 15px;
+    flex: 1 1 130px;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    margin-bottom: 10px;
+}
+
+.book img {
+    align-content: center;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.book h3 {
+    font-family: vbf;
+    font-size: 1rem;
+}
+
+.book p {
+    font-size: .8rem;
+}
+
+.book h6 {
+    font-size: .7rem;
+}
+
+.book h4 {
+    font-size: .9rem;
+    color: #ea2312;
+}
+/*Footer*/
+footer {
+    display: flex;
+    flex-direction: column;
+    background-color: darkblue;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    padding: 10px 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top:auto;
+}
+
+footer h3 {
+    color: white;
+    margin-top: 20px;
+}
+
+footer p {
+    color: #eaeaae;
+    margin-top: 8px;
+    font-size: .7rem;
+}
+/*Create Book*/
+.aButton{
+    padding:5px 10px;
+    background-color:dodgerblue;
+    display:inline-block;
+    margin-bottom:10px;
+    border-radius:10px;
+    margin-left:10px;
+}
+.aButton a {
+    color: white;
+}
+
+.container {
+    max-width: 500px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 25px 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+    gap : 10px;
+}
+.form-group img{
+    width:200px;
+    height:auto;
+}
+label {
+    flex: 1;
+    text-align: right;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+
+input[type="text"],
+select,
+input[type="file"],
+input[type="password"] ,
+textarea{
+    flex: 2;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+    input[type="text"]:focus,
+    select:focus,
+    input[type="file"]:focus,
+    input[type="password"]:focus,
+    textarea:focus
+    {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 4px rgba(0,123,255,0.4);
+    }
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #007bff;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+button:hover {
+    background: #0056b3;
+}
+
+.reset-btn {
+    background: #6c757d;
+}
+.reset-btn:hover {
+    background: #5a6268;
+}
+
+/*Pagination*/
+.pagination {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 15px; 
+    margin-top: 20px;
+}
+
+.pagination-link {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: #333;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-link:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination-link.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+/*Table*/
+
+.table-box {
+    width: 90%;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.table-title {
+    font-family: vbf;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #1e1e1e;
+    text-align: center;
+}
+
+table-modern {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 12px;
+    table-layout: fixed;
+}
+
+.table-modern th {
+    background-color: #f0f2f5;
+    padding: 12px 10px;
+    font-family: vbf;
+    font-size: .95rem;
+    color: #333;
+    white-space: nowrap;
+}
+
+.table-modern td {
+    padding: 10px 12px;
+    font-size: .9rem;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.table-modern tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.table-modern tr:hover {
+    background-color: #e6f2ff;
+    transition: .3s;
+}
+
+.table-modern a {
+    color: dodgerblue;
+    font-family: vbf;
+    margin: 0 5px;
+    transition: .3s;
+}
+
+.table-modern a:hover {
+    color: #ff5722;
+}
+.table-modern img{
+    width:50px;
+    height:auto;
+}
+
+.error{
+    color:red;
+    padding:5px 10px;
+}

@@ -1,0 +1,39 @@
+﻿@using App.Domain.Core.UserAgg.DTOs
+@model LoginUserDto
+@{
+    ViewData["Title"] = "صفحه ورود";
+    Layout = "_CustomLayout";
+}
+@section styles {
+    <link rel="Stylesheet" type="text/css" href="/css/customCss.css" asp-append-version="true" />
+}
+
+<div class="container">
+    <form method="post" asp-action="Login">
+        <div class="form-group">
+            <label>نام کاربری</label>
+            <input type="text" asp-for="UserName" />
+        </div>
+
+        <div class="form-group">
+            <label>رمز عبور</label>
+            <input type="password" asp-for="Password" />
+        </div>
+        
+        <div class="form-group">
+            <label>مرا بخاطر بسپار</label>
+            <input type="checkbox" asp-for="RememberMe" />
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit">ورود</button>
+            <button type="reset" class="reset-btn">پاک کردن</button>
+        </div>
+        <div class="form-group">
+            <a asp-action="register">آیا هنوز ثبت نام ، نکرده اید ؟ ثبت نام</a>
+        </div>
+    </form>
+    <div class="error">
+        <p>@ViewBag.Error</p>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="BaseEntityAgg\Contracts\AppServices\" />
+    <Folder Include="BaseEntityAgg\Contracts\Repositories\" />
+    <Folder Include="BaseEntityAgg\Contracts\Services\" />
+    <Folder Include="CategoryAgg\Contracts\AppServices\" />
+    <Folder Include="CategoryAgg\Data\" />
+    <Folder Include="CategoryAgg\DTOs\" />
+    <Folder Include="CategoryAgg\Enums\" />
+    <Folder Include="CategoryAgg\Services\" />
+    <Folder Include="TaskAgg\Contracts\AppServices\" />
+    <Folder Include="TaskAgg\Data\" />
+    <Folder Include="TaskAgg\Services\" />
+    <Folder Include="UserAgg\Contracts\AppServices\" />
+    <Folder Include="UserAgg\Data\" />
+    <Folder Include="UserAgg\Enums\" />
+    <Folder Include="UserAgg\Services\" />
+  </ItemGroup>
+
+</Project>

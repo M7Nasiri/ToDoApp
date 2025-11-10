@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="File\**" />
+    <EmbeddedResource Remove="File\**" />
+    <None Remove="File\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Domain.Core\App.Domain.Core.csproj" />
+    <ProjectReference Include="..\App.Framework\App.Framework.csproj" />
+    <ProjectReference Include="..\App.Infra.Data.Providers.FileStorageService\App.Infra.Data.FileStorageService.csproj" />
+  </ItemGroup>
+
+</Project>

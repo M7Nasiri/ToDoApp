@@ -1,0 +1,61 @@
+﻿@using App.EndPoints.MVC.ToDo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="~/BookStoreShop.styles.css" asp-append-version="true" />
+    @RenderSection("styles", false)
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul class="mainMenu">
+                <li><a href="#">صفحه اصلی</a></li>
+                <li class="item">
+                    <a href="#">
+                        فروشگاه
+                        <ul class="dropdown-menu">
+                            <li class="dd-item"><a href="#">کتاب های روانشناسی</a></li>
+                            <li class="dd-item"><a href="#">کتاب های دانشگاهی</a></li>
+                            <li class="dd-item"><a href="#">کتاب های رمان</a></li>
+                            <li class="dd-item"><a href="#">کتاب های زبان</a></li>
+                        </ul>
+                    </a>
+                </li>
+                <li><a href="#">دسته بندی ها</a></li>
+                <li><a href="#">نوشتارها</a></li>
+                <li><a href="#">درباره ما</a></li>
+                <li><a href="#">تماس با ما</a></li>
+
+            </ul>
+        </nav>
+        @if(User.Identity.IsAuthenticated)
+        {
+            <div class="inside">
+                <p>@(User.Identity.Name) خوش آمدید!</p>|
+                <a asp-controller="Account" asp-action="Logout">خروج</a>
+            </div>
+           
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login" id="login">ورود</a>        
+        }
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+   
+
+    <footer>
+        <h3>
+            خانه کتاب | منبع آموزش و مطالعه
+        </h3>
+        <p>طراحی شده برای تمرینات CSS و HTML تمامی حقوق محفوظ است </p>
+    </footer>
+</body>
+</html>

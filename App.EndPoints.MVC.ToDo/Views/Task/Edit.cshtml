@@ -1,0 +1,46 @@
+﻿@using App.Domain.Core.TaskAgg.DTOs
+@model UpdateTaskDto
+@{
+    ViewData["Title"] = "ویرایش کار";
+    Layout = "_CustomLayout";
+}
+@section styles {
+    <link rel="Stylesheet" type="text/css" href="/css/customCss.css" />
+}
+
+<div class="container">
+    <form method="post" asp-action="edit" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>عنوان</label>
+            <input type="text" asp-for="Title" />
+        </div>
+        <div class="form-group">
+            <label>توضیحات</label>
+            <input type="text" asp-for="Description" />
+        </div>
+        <div class="form-group">
+            <label>وضعیت</label>
+            <select asp-for="Status">
+                <option selected>انتخاب کنید</option>
+                <option value="0">انجام شده </option>
+                <option value="1">در حال انجام</option>
+                <option value="2"> تاخیر خورده</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>انجام تا تاریخ :</label>
+            <input type="text" asp-for="DueDate" />
+        </div>
+
+        <div class="form-group">
+            <label>دسته‌بندی</label>
+            <select asp-for="CategoryId" asp-items="@(ViewBag.Cats)">
+            </select>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="bg-2">ویرایش</button>
+            <button type="reset" class="reset-btn">پاک کردن</button>
+        </div>
+    </form>
+</div>
