@@ -14,8 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Domain.Core\App.Domain.Core.csproj" />
-    <ProjectReference Include="..\App.Framework\App.Framework.csproj" />
-    <ProjectReference Include="..\App.Infra.Data.Providers.FileStorageService\App.Infra.Data.FileStorageService.csproj" />
+    <ProjectReference Include="..\App.Infra.Data.Tools\App.Infra.Data.Tools.csproj" />
   </ItemGroup>
 
 </Project>

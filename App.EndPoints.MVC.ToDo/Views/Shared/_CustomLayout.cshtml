@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="~/BookStoreShop.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/customCss.css" asp-append-version="true" />
     @RenderSection("styles", false)
 </head>
 <body>
@@ -14,18 +14,7 @@
         <nav>
             <ul class="mainMenu">
                 <li><a href="#">صفحه اصلی</a></li>
-                <li class="item">
-                    <a href="#">
-                        فروشگاه
-                        <ul class="dropdown-menu">
-                            <li class="dd-item"><a href="#">کتاب های روانشناسی</a></li>
-                            <li class="dd-item"><a href="#">کتاب های دانشگاهی</a></li>
-                            <li class="dd-item"><a href="#">کتاب های رمان</a></li>
-                            <li class="dd-item"><a href="#">کتاب های زبان</a></li>
-                        </ul>
-                    </a>
-                </li>
-                <li><a href="#">دسته بندی ها</a></li>
+                <li><a asp-action="Create" asp-controller="Category"> ساخت دسته بندی </a></li>
                 <li><a href="#">نوشتارها</a></li>
                 <li><a href="#">درباره ما</a></li>
                 <li><a href="#">تماس با ما</a></li>
@@ -53,9 +42,20 @@
 
     <footer>
         <h3>
-            خانه کتاب | منبع آموزش و مطالعه
+            To Do Application
         </h3>
         <p>طراحی شده برای تمرینات CSS و HTML تمامی حقوق محفوظ است </p>
+       
     </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/moment@2.29.4/min/moment.min.js"></script>
+    <script src="https://unpkg.com/moment-jalaali/build/moment-jalaali.js"></script>
+    <script>
+        moment.loadPersian({ usePersianDigits: false });
+    </script>
+    
+    @RenderSection("scripts", required: false)
 </body>
 </html>

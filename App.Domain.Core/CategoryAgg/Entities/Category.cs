@@ -13,6 +13,6 @@ namespace App.Domain.Core.CategoryAgg.Entities
         public string Title { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<MyTask> Tasks { get; set; }
+        public List<MyTask>? Tasks { get; set; }
     }
 }

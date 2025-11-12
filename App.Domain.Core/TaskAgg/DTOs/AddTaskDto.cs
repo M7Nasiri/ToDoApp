@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core.TaskAgg.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.TaskAgg.DTOs
 {
@@ -8,6 +9,7 @@ namespace App.Domain.Core.TaskAgg.DTOs
         public string Description { get; set; }
         public StatusEnum Status { get; set; }
         public DateTime CreatedAt { get; set; }
+        //[RegularExpression(@"^\d{4}/((0\d)|(1[012]))/(([012]\d)|3[01])$",ErrorMessage ="تاریخ وارد شده معتبر نمی باشد .")]
         public DateTime DueDate { get; set; }
         public string? CreateAtFa { get; set; }
         public string? DueDateFa { get; set; }

@@ -100,6 +100,7 @@ namespace App.Infra.Data.Repo.Ef.TaskAgg
             .SetProperty(t => t.IsDelete, dto.IsDelete)
             .SetProperty(t => t.Status, dto.Status)
             .SetProperty(t => t.DueDate, dto.DueDate)
+            .SetProperty(t => t.DueDateFa, dto.DueDateFa)
             .SetProperty(t => t.UpdatedAt, dto.UpdatedAt)
             .SetProperty(t => t.CategoryId, dto.CategoryId)
             .SetProperty(t => t.Description, dto.Description)

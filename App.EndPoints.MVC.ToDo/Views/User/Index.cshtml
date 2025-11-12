@@ -1,4 +1,5 @@
-﻿@using App.Domain.Core.UserAgg.DTOs
+﻿@using App.Domain.Core.TaskAgg.Enums
+@using App.Domain.Core.UserAgg.DTOs
 @model UserInfoDto
 @{
     ViewData["Title"] = "صفحه مدیریت کاربران";
@@ -30,7 +31,9 @@
                 <td>@item.Id</td>
                 <td>@item.Title</td>
                 <td>@item.Description</td>
-                <td>@item.Status</td>
+                <td class="@(item.Status == StatusEnum.Done ? "status-done" : (item.Status == StatusEnum.Waiting ? "status-waiting" : "status-postponed"))">
+                    @(item.Status == StatusEnum.Done ? "انجام شده" : (item.Status == StatusEnum.Waiting ? "در حال انجام" : "به تاخیر افتاده"))
+                </td>
                 <td>@item.CreatedAtFa</td>
                 <td>@item.DueDateFa</td>
                 <td>@item.Category.Title</td>

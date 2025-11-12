@@ -1,18 +1,15 @@
 ﻿using App.Domain.Core.CategoryAgg.Contracts.Repositories;
 using App.Domain.Core.CategoryAgg.Contracts.Services;
 using App.Domain.Core.CategoryAgg.Entities;
-using App.Infra.Data.FileStorageService.Contracts;
 
 namespace App.Domain.Services.CategoryAgg
 {
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepo;
-        private readonly IFileService _fileService;
-        public CategoryService(ICategoryRepository categoryRepo, IFileService fileService)
+        public CategoryService(ICategoryRepository categoryRepo)
         {
             _categoryRepo = categoryRepo;
-            _fileService = fileService;
         }
         public bool Create(Category model)
         {
@@ -32,7 +29,7 @@ namespace App.Domain.Services.CategoryAgg
 
         public bool Update(int id, Category model)
         {
-            var cat = Get(id);
+            //var cat = Get(id);
             return _categoryRepo.UpdateCategory(id, model);
         }
         public bool Delete(int id, Category model)

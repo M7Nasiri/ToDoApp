@@ -2,9 +2,7 @@
 using App.Domain.Core.TaskAgg.Contracts.Repositories;
 using App.Domain.Core.TaskAgg.Contracts.Services;
 using App.Domain.Core.TaskAgg.DTOs;
-using App.Framework.Extensions;
-using System.Runtime.CompilerServices;
-
+using App.Infra.Data.Tools;
 namespace App.Domain.Services.TaskAgg
 {
     public class TaskService : ITaskService
@@ -20,7 +18,7 @@ namespace App.Domain.Services.TaskAgg
         {
             dto.CreatedAt = DateTime.Now;
             dto.CreateAtFa = dto.CreatedAt.ToPersianString("yyyy/MM/dd");
-            
+
             dto.DueDateFa = dto.DueDate.ToPersianString("yyyy/MM/dd");
 
 
@@ -39,12 +37,12 @@ namespace App.Domain.Services.TaskAgg
 
         }
 
-        public Result<bool> Delete(DeleteTaskDto dto,int id)
+        public Result<bool> Delete(DeleteTaskDto dto, int id)
         {
             dto.DeletedAt = DateTime.Now;
             dto.IsDelete = true;
             var result = new Result<bool>();
-            if (_taskRepository.Delete(dto,id).IsSuccess)
+            if (_taskRepository.Delete(dto, id).IsSuccess)
             {
                 result.Message = "تسک جدید با موفقیت حذف شد .";
                 result.IsSuccess = true;
@@ -60,8 +58,8 @@ namespace App.Domain.Services.TaskAgg
         public Result<List<GetTaskDto>> GetAll(int userId)
         {
             var result = _taskRepository.GetAll(userId).Data;
-            result.ForEach(task => task.CreatedAt.ToPersianString("yyyy/MM/dd"));
-            result.ForEach(task => task.DueDate.ToPersianString("yyyy/MM/dd"));
+            //result.ForEach(task => task.CreatedAt.ToPersianString("yyyy/MM/dd"));
+            //result.ForEach(task => task.DueDate.ToPersianString("yyyy/MM/dd"));
 
             return new Result<List<GetTaskDto>>
             {

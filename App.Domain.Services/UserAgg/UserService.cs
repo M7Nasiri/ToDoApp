@@ -1,10 +1,9 @@
-﻿using App.Domain.Core.UserAgg.Contracts.Repositories;
+﻿using App.Domain.Core.Common.Contracts.Services;
+using App.Domain.Core.UserAgg.Contracts.Repositories;
 using App.Domain.Core.UserAgg.Contracts.Services;
 using App.Domain.Core.UserAgg.DTOs;
 using App.Domain.Core.UserAgg.Entities;
-
-using App.Framework.Tools;
-using App.Infra.Data.FileStorageService.Contracts;
+using App.Infra.Data.Tools;
 namespace App.Domain.Services.UserAgg
 {
     public class UserService : IUserService
@@ -18,13 +17,16 @@ namespace App.Domain.Services.UserAgg
         }
         public bool Register(RegisterUserDto model)
         {
-            if (_userRepository.IsUserExist(model.UserName))
-            {
-                return false;
-            }
-
             model.Password = model.Password.ToMd5Hex();
             return _userRepository.Register(model);
+        }
+        public bool IsUserExist(string userName)
+        {
+            if (_userRepository.IsUserExist(userName))
+            {
+                return true;
+            }
+            return false;
         }
 
         public GetUserDto? Login(LoginUserDto dto)
@@ -57,10 +59,6 @@ namespace App.Domain.Services.UserAgg
 
         public bool Update(int id, UpdateUserDto model)
         {
-            var user = GetUserById(id);
-            
-            var pass = string.IsNullOrEmpty(model.Password) ? user.Password : model.Password.ToMd5Hex();
-            model.Password = pass;
             return _userRepository.Update(id, model);
         }
 

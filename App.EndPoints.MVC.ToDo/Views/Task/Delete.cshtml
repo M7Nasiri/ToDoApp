@@ -6,6 +6,8 @@
 }
 @section styles {
     <link rel="Stylesheet" type="text/css" href="/css/customCss.css" />
+    <link rel="Stylesheet" type="text/css" href="~/datepicker/calendar.css" />
+
 }
 
 <div class="container">
@@ -27,10 +29,19 @@
                 <option value="2"> تاخیر خورده</option>
             </select>
         </div>
-        <div class="form-group">
+       @*  <div class="form-group">
             <label>انجام تا تاریخ :</label>
             <input type="text" asp-for="DueDate"  />
         </div>
+ *@
+        <div class="form-group">
+            <label for="DueDate">انجام تا تاریخ :</label>
+            <input type="text" asp-for="DueDate" value="@Model.DueDate" class="input-date" autocomplete="off">
+        </div>
+
+        <div id="calendar" class="jalali-calendar"></div>
+
+
 
         <div class="form-group">
             <label>دسته‌بندی</label>
@@ -47,3 +58,7 @@
         </div>
     </form>
 </div>
+
+@section scripts {
+    <script src="~/datepicker/calendar.js"></script>
+}

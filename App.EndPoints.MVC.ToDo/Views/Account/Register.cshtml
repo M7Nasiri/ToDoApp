@@ -26,13 +26,37 @@
 
         <div class="form-group">
             <label>تصویر</label>
-            <input asp-for="ImageFile" type="file" />
+            @* <input type="file" asp-for="ImageFile" /> *@
+@*             <div class="img-layer">
+            <input type="file" name="UserAvatar" id="UserAvatar" accept=".png,.jpg,.jpeg"
+            onchange="UploadUserAvatar('@Url.Action("Register","Account")')"
+            class="display-none"/>
+            <a onclick="OpenAvatarInput()" class="changeImage"><i class="icon-pencil-edit"></i></a>
+            <img src="@Model.ImagePath" />
+            </div> *@
+            <input type="file" asp-for="ImageFile" accept="image/*" onchange="loadFile(event)">
+        </div>
+        <div class="form-group">
+            <img id="output" />
         </div>
         <div class="form-buttons">
             <button type="submit">ایجاد</button>
             <button type="reset" class="reset-btn">پاک کردن</button>
         </div>
     </form>
-    <div class="error"><p>ViewBag.Error</p></div>
+    <div class="error"><p>@ViewBag.Error</p></div>
 </div>
 
+@section scripts{
+    <script src="~/js/customJs.js"></script>
+}
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>

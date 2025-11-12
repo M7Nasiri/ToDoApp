@@ -1,7 +1,8 @@
-﻿using App.Domain.Core.UserAgg.Contracts.Services;
+﻿using App.Domain.Core.Common.Contracts.Services;
+using App.Domain.Core.UserAgg.Contracts.AppServices;
 using App.Domain.Core.UserAgg.DTOs;
+using App.EndPoints.MVC.ToDo.Filters;
 using App.EndPoints.MVC.ToDo.User.ViewModels;
-using App.Infra.Data.FileStorageService.Contracts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -11,28 +12,34 @@ namespace App.EndPoints.MVC.ToDo.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IUserAppService _userAppService;
         private readonly IFileService _fileService;
-        public AccountController(IUserService userService, IFileService fileService)
+        public AccountController(IUserAppService userAppService, IFileService fileService)
         {
-            _userService = userService;
+            _userAppService = userAppService;
             _fileService = fileService;
         }
 
-        public IActionResult Login()
+
+        [HttpGet]
+        [Route("Login")]
+        [RedirectIfAuthenticatedFilterAttribute]
+        public IActionResult Login(string ReturnUrl = "/")
         {
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(LoginUserDto dto)
+        [Route("Login")]
+        public IActionResult Login(LoginUserDto dto, string ReturnUrl = "/")
         {
             if (!ModelState.IsValid)
             {
                 return View(dto);
             }
 
-            var result = _userService.Login(dto);
+            var result = _userAppService.Login(dto);
 
             if (result != null)
             {
@@ -48,7 +55,7 @@ namespace App.EndPoints.MVC.ToDo.Controllers
                     IsPersistent = dto.RememberMe
                 };
                 HttpContext.SignInAsync(principal, properties);
-                return RedirectToAction("Index", "User");
+                return Redirect(ReturnUrl ?? "/");
             }
             ViewBag.Error = "نام کاربری یا رمز عبور اشتباه است.";
             return View(dto);
@@ -64,9 +71,7 @@ namespace App.EndPoints.MVC.ToDo.Controllers
         public IActionResult Register(RegisterUserViewModel model)
         {
             var file = model.ImageFile;
-
             string path = "";
-
 
             if (model.ImageFile != null)
             {
@@ -74,6 +79,7 @@ namespace App.EndPoints.MVC.ToDo.Controllers
 
                 path = _fileService.Upload(stream, file.FileName, "Users");
             }
+
             var dto = new RegisterUserDto
             {
                 FullName = model.FullName,
@@ -86,13 +92,15 @@ namespace App.EndPoints.MVC.ToDo.Controllers
             {
                 return View(dto);
             }
-            if (_userService.Register(dto))
+            if (_userAppService.Register(dto))
             {
+                //return new JsonResult(new { status = "Success" });
                 return RedirectToAction("Login");
             }
             else
             {
                 ViewBag.Error = "نام کاربری قبلا انتخاب شده است .";
+                //return new JsonResult(new { status = "Error" });
                 return View(model);
             }
         }
@@ -101,6 +109,7 @@ namespace App.EndPoints.MVC.ToDo.Controllers
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account");
         }
+
 
     }
 }

@@ -1,11 +1,15 @@
-﻿using App.Domain.Core.TaskAgg.Contracts.Services;
+﻿using App.Domain.Core.Common.Contracts.Services;
+using App.Domain.Core.TaskAgg.Contracts.AppServices;
+using App.Domain.Core.TaskAgg.Contracts.Services;
+using App.Domain.Core.UserAgg.Contracts.AppServices;
 using App.Domain.Core.UserAgg.Contracts.Services;
 using App.Domain.Core.UserAgg.DTOs;
-using App.Domain.Core.UserAgg.Entities;
 using App.EndPoints.MVC.ToDo.User.ViewModels;
-using App.Infra.Data.FileStorageService.Contracts;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 using System.Security.Claims;
 
 namespace App.EndPoints.MVC.ToDo.Controllers
@@ -13,14 +17,14 @@ namespace App.EndPoints.MVC.ToDo.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        private readonly ITaskService _taskService;
-        private readonly IUserService _userService;
+        private readonly ITaskAppService _taskAppService;
+        private readonly IUserAppService _userAppService;
         private readonly IFileService _fileService;
 
-        public UserController(ITaskService taskService, IUserService userService, IFileService fileService)
+        public UserController(ITaskAppService taskAppService, IUserAppService userAppService, IFileService fileService)
         {
-            _taskService = taskService;
-            _userService = userService;
+            _taskAppService = taskAppService;
+            _userAppService = userAppService;
             _fileService = fileService;
         }
 
@@ -28,18 +32,18 @@ namespace App.EndPoints.MVC.ToDo.Controllers
         {
             var userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var userName = User.FindFirstValue(ClaimTypes.Name);
-            var tasks = _taskService.GetAll(userId);
+            var tasks = _taskAppService.GetAll(userId);
             var allUserInfo = new UserInfoDto
             {
                 Tasks = tasks.Data,
                 UserName = userName,
-                Id= userId
+                Id = userId
             };
             return View(allUserInfo);
         }
         public IActionResult Edit(int id)
         {
-            var user = _userService.GetUserById(id);
+            var user = _userAppService.GetUserById(id);
             if (user == null)
             {
                 return View();
@@ -56,6 +60,7 @@ namespace App.EndPoints.MVC.ToDo.Controllers
         [HttpPost]
         public IActionResult Edit(UpdateUserViewModel model)
         {
+            var file = model.ImageFile;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -64,7 +69,8 @@ namespace App.EndPoints.MVC.ToDo.Controllers
             if (model.ImageFile != null)
             {
                 _fileService.Delete(model.ImagePath);
-                newPath = _fileService.Upload(model.ImageFile, "Users");
+                using var stream = file.OpenReadStream();
+                newPath = _fileService.Upload(stream, file.FileName, "Users");
             }
             else
             {
@@ -77,13 +83,13 @@ namespace App.EndPoints.MVC.ToDo.Controllers
                 Password = model.Password,
                 ImagePath = newPath,
             };
-            _userService.Update(model.Id, dto);
+            _userAppService.Update(model.Id, dto);
             return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-            var user = _userService.GetUserById(id);
+            var user = _userAppService.GetUserById(id);
 
             var model = new DeleteUserDto
             {
@@ -101,9 +107,10 @@ namespace App.EndPoints.MVC.ToDo.Controllers
             {
                 return View(model);
             }
-            _userService.Delete(model.Id, model);
-            return RedirectToAction("Login","Account");
+            _userAppService.Delete(model.Id, model);
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
         }
-        
+
     }
 }

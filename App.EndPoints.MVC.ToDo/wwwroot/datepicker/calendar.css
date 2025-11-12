@@ -1,0 +1,84 @@
+.jalali-calendar {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 9999;
+    direction: rtl;
+    font-family: "IRANSans", sans-serif;
+}
+
+    .jalali-calendar table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        table-layout: fixed;
+    }
+
+    .jalali-calendar th {
+        background: #f3f3f3;
+        padding: 6px;
+        border-radius: 4px;
+    }
+
+    .jalali-calendar td {
+        padding: 6px;
+        cursor: pointer;
+        height: 35px;
+        vertical-align: middle;
+    }
+
+        .jalali-calendar td:hover {
+            background: #e9f2ff;
+        }
+
+    .jalali-calendar .selected {
+        background: #007bff;
+        color: white;
+        border-radius: 50%;
+    }
+
+    .jalali-calendar .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    .jalali-calendar .nav-btn {
+        cursor: pointer;
+        padding: 5px 8px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+    }
+
+    .jalali-calendar .year-month {
+        font-size: 1rem;
+        padding: 4px;
+    }
+
+    .jalali-calendar .year-select {
+        font-size: 0.9rem;
+        padding: 4px;
+        cursor: pointer;
+    }
+
+.form-group {
+    margin: 20px;
+    position: relative;
+}
+
+.input-date {
+    padding: 6px 8px;
+    width: 180px;
+}
+
+

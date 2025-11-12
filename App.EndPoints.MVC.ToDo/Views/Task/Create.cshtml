@@ -5,7 +5,9 @@
     Layout = "_CustomLayout";
 }
 @section styles {
-    <link rel="Stylesheet" type="text/css" href="/css/customCss.css" />
+    <link rel="Stylesheet" type="text/css" href="~/css/customCss.css" />
+    <link rel="Stylesheet" type="text/css" href="~/datepicker/calendar.css" />
+
 }
 
 <div class="container">
@@ -27,11 +29,15 @@
                 <option value="2"> تاخیر خورده</option>
             </select>
         </div>
+
         <div class="form-group">
-            <label>انجام تا تاریخ :</label>
-            <input type="text" asp-for="DueDate" />
+            <label for="DueDate">انجام تا تاریخ :</label>
+            <input type="text" id="DueDate" name="DueDate" class="input-date" autocomplete="off">
         </div>
-  
+
+        <div id="calendar" class="jalali-calendar"></div>
+
+        
         <div class="form-group">
             <label>دسته‌بندی</label>
             <select asp-for="CategoryId" asp-items="@(ViewBag.Cats)">
@@ -44,5 +50,25 @@
         </div>
     </form>
 </div>
+@section scripts{
+    <script src="~/datepicker/calendar.js" ></script>
+ @*    <script>
+        $(document).ready(function () {
+            $("#DueDate").kamaDatepicker({
+                forceFarsiDigits: true,
+                placeholder: "YYYY/MM/DD",
+                markToday: true,
+                highlightSelectedDay: true
+            });
+        });
+    </script> *@
+@*     <script>
+        alert("scripts loaded!");
 
+        console.log("jQuery: ", typeof $);
+        console.log("kama: ", typeof kamaDatepicker);
+
+        kamaDatepicker('DueDate');
+    </script> *@
+}
 

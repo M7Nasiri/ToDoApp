@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Framework", "App.Framew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infra.Data.FileStorageService", "App.Infra.Data.Providers.FileStorageService\App.Infra.Data.FileStorageService.csproj", "{9A36454E-2756-47EE-953E-3CC9B9C49044}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Infra.Data.Tools", "App.Infra.Data.Tools\App.Infra.Data.Tools.csproj", "{48FAFBE9-8C1F-4A7F-BA4D-91D78EA5106D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{9A36454E-2756-47EE-953E-3CC9B9C49044}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A36454E-2756-47EE-953E-3CC9B9C49044}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A36454E-2756-47EE-953E-3CC9B9C49044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48FAFBE9-8C1F-4A7F-BA4D-91D78EA5106D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48FAFBE9-8C1F-4A7F-BA4D-91D78EA5106D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48FAFBE9-8C1F-4A7F-BA4D-91D78EA5106D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48FAFBE9-8C1F-4A7F-BA4D-91D78EA5106D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{996911BE-2554-4B24-BB80-75B1AB919DE4} = {9695F8A1-315D-4540-8B63-A9AA779C36D6}
 		{8B601A15-4D54-45F1-9438-FE3CA28A0E85} = {0AB429C7-DE40-4CCE-88BE-7A2C6D0F8D23}
 		{9A36454E-2756-47EE-953E-3CC9B9C49044} = {AFECDA5C-5A84-4492-A259-D09BF9776613}
+		{48FAFBE9-8C1F-4A7F-BA4D-91D78EA5106D} = {AFECDA5C-5A84-4492-A259-D09BF9776613}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {955EB444-E2D6-40D2-9D3A-DA006FD7D902}

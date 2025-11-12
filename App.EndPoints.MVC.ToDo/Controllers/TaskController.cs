@@ -1,5 +1,7 @@
-﻿using App.Domain.Core.CategoryAgg.Contracts.Services;
+﻿using App.Domain.Core.CategoryAgg.Contracts.AppServices;
+using App.Domain.Core.CategoryAgg.Contracts.Services;
 using App.Domain.Core.CategoryAgg.Entities;
+using App.Domain.Core.TaskAgg.Contracts.AppServices;
 using App.Domain.Core.TaskAgg.Contracts.Services;
 using App.Domain.Core.TaskAgg.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -10,18 +12,18 @@ namespace App.EndPoints.MVC.ToDo.Controllers
 {
     public class TaskController : Controller
     {
-        private readonly ITaskService _taskService;
-        private readonly ICategoryService _catService;
+        private readonly ITaskAppService _taskAppService;
+        private readonly ICategoryAppService _catAppService;
 
-        public TaskController(ITaskService taskService, ICategoryService catService)
+        public TaskController(ITaskAppService taskAppService, ICategoryAppService catAppService)
         {
-            _taskService = taskService;
-            _catService = catService;
+            _taskAppService = taskAppService;
+            _catAppService = catAppService;
         }
 
         public IActionResult Create()
         {
-            ViewBag.Cats = new SelectList(_catService.GetAll(),"Id","Title");
+            ViewBag.Cats = new SelectList(_catAppService.GetAll(),"Id","Title");
             return View();
         }
 
@@ -31,18 +33,18 @@ namespace App.EndPoints.MVC.ToDo.Controllers
             //dto.CreateAt = DateTime.Now;
             if (!ModelState.IsValid)
             {
-                ViewBag.Cats = new SelectList(_catService.GetAll(), "Id", "Title");
+                ViewBag.Cats = new SelectList(_catAppService.GetAll(), "Id", "Title");
                 return View(dto);
             }
             dto.UserId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var res = _taskService.Add(dto);
+            var res = _taskAppService.Add(dto);
             return RedirectToAction("Index", "User");
         }
 
         public IActionResult Edit(int id)
         {
-            ViewBag.Cats = new SelectList(_catService.GetAll(), "Id", "Title");
-            var task = _taskService.GetById(id);
+            ViewBag.Cats = new SelectList(_catAppService.GetAll(), "Id", "Title");
+            var task = _taskAppService.GetById(id);
             if (task.Data == null)
             {
                 return View();
@@ -63,16 +65,16 @@ namespace App.EndPoints.MVC.ToDo.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Cats = new SelectList(_catService.GetAll(), "Id", "Title");
+                ViewBag.Cats = new SelectList(_catAppService.GetAll(), "Id", "Title");
                 return View();
             }
-            _taskService.Update(dto,dto.Id);
+            _taskAppService.Update(dto,dto.Id);
             return RedirectToAction("Index", "User");
         }
         public IActionResult Delete(int id)
         {
-            ViewBag.Cats = new SelectList(_catService.GetAll(), "Id", "Title");
-            var task = _taskService.GetById(id);
+            ViewBag.Cats = new SelectList(_catAppService.GetAll(), "Id", "Title");
+            var task = _taskAppService.GetById(id);
             if (task.Data == null)
             {
                 ViewBag.Error = "آیدی نامعتبر است .";
@@ -94,10 +96,10 @@ namespace App.EndPoints.MVC.ToDo.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Cats = new SelectList(_catService.GetAll(), "Id", "Title");
+                ViewBag.Cats = new SelectList(_catAppService.GetAll(), "Id", "Title");
                 return View(dto);
             }
-            _taskService.Delete(dto,dto.Id);
+            _taskAppService.Delete(dto,dto.Id);
             return RedirectToAction("Index", "User");
         }
     }

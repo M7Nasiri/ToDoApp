@@ -1,15 +1,21 @@
+using App.Domain.AppServices.CategoryAgg;
+using App.Domain.AppServices.TaskAgg;
+using App.Domain.AppServices.UserAgg;
+using App.Domain.Core.CategoryAgg.Contracts.AppServices;
 using App.Domain.Core.CategoryAgg.Contracts.Repositories;
 using App.Domain.Core.CategoryAgg.Contracts.Services;
+using App.Domain.Core.Common.Contracts.Services;
+using App.Domain.Core.TaskAgg.Contracts.AppServices;
 using App.Domain.Core.TaskAgg.Contracts.Repositories;
 using App.Domain.Core.TaskAgg.Contracts.Services;
+using App.Domain.Core.UserAgg.Contracts.AppServices;
 using App.Domain.Core.UserAgg.Contracts.Repositories;
 using App.Domain.Core.UserAgg.Contracts.Services;
 using App.Domain.Services.CategoryAgg;
+using App.Domain.Services.FileAgg;
 using App.Domain.Services.TaskAgg;
 using App.Domain.Services.UserAgg;
 using App.Infra.Data.Db.SqlServer.Ef.DbCtx;
-using App.Infra.Data.FileStorageService.Contracts;
-using App.Infra.Data.FileStorageService.Services;
 using App.Infra.Data.Repo.Ef.CategoryAgg;
 using App.Infra.Data.Repo.Ef.TaskAgg;
 using App.Infra.Data.Repo.Ef.UserAgg;
@@ -30,6 +36,10 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
+builder.Services.AddScoped<ITaskAppService, TaskAppService>();
+builder.Services.AddScoped<IUserAppService, UserAppService>();
 
 builder.Services.AddScoped<IFileService, FileService>();
 
@@ -72,6 +82,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}");
+    pattern: "{controller=User}/{action=Index}/{id?}");
 
 app.Run();

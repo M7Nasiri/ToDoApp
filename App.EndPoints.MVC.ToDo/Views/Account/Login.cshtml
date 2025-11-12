@@ -10,6 +10,7 @@
 
 <div class="container">
     <form method="post" asp-action="Login">
+        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
         <div class="form-group">
             <label>نام کاربری</label>
             <input type="text" asp-for="UserName" />
