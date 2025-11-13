@@ -1,0 +1,66 @@
+﻿@using App.EndPoints.MVC.ToDo.Models.ViewModels.User
+@model UserProfileViewModel
+
+<div class="sidebar-container">
+    <div class="user-profile">
+        <div class="profile-image">
+            <img id="profilePreview" src="@(string.IsNullOrEmpty(Model.CurrentImagePath) ? "/images/default-avatar.png" : Model.CurrentImagePath)" alt="User Image" />
+
+            <label for="NewImage" class="edit-icon">
+                <i class="fa fa-pen"></i>
+            </label>
+@*             <input type="file" id="NewImage" name="NewImage" style="display:none" accept="image/*" />
+ *@        </div>
+
+        <div class="profile-info">
+            <h3>@Model.FullName</h3>
+            <p>@Model.UserName</p>
+
+            <form asp-action="UpdateProfileImage" asp-controller="User" enctype="multipart/form-data" method="post">
+                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+
+                <div class="form-group">
+                    <label>آیدی</label>
+                    <input type="text" name="Id" value="@Model.Id" disabled />
+                </div> 
+                <div class="form-group">
+                    <label>نام کامل</label>
+                    <input type="text" name="FullName" value="@Model.FullName" />
+                </div>
+
+                <div class="form-group">
+                    <label>نام کاربری</label>
+                    <input type="text" name="UserName" value="@Model.UserName" disabled />
+                </div>
+                
+                <div class="form-group">
+                    <label>تعداد تسک ها</label>
+                    <input type="text" name="TasksCount" value="@Model.TasksCount" disabled />
+                </div>
+
+                <input type="hidden" name="CurrentImagePath" value="@Model.CurrentImagePath" />
+                <input type="file" asp-for="@Model.NewImage"  id="fileInputHidden"  />
+
+                <button type="submit" class="update-btn">ثبت تغییرات</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        const fileInput = document.getElementById("NewImage");
+        const preview = document.getElementById("profilePreview");
+
+        fileInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

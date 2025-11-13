@@ -2,7 +2,7 @@
 using App.Domain.Core.UserAgg.Contracts.AppServices;
 using App.Domain.Core.UserAgg.DTOs;
 using App.EndPoints.MVC.ToDo.Filters;
-using App.EndPoints.MVC.ToDo.User.ViewModels;
+using App.EndPoints.MVC.ToDo.Models.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;

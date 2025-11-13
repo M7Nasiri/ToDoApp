@@ -32,7 +32,7 @@ namespace App.Infra.Data.Repo.Ef.UserAgg
 
         public User? GetUserById(int id)
         {
-            return _context.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
+            return _context.Users.Include(u=>u.Tasks).AsNoTracking().FirstOrDefault(u => u.Id == id);
         }
 
         public bool IsUserExist(string userName)
@@ -77,6 +77,12 @@ namespace App.Infra.Data.Repo.Ef.UserAgg
                 return _context.SaveChanges() > 0;
             }
             return false;
+        }
+
+        public bool Update(int id, UserProfileDto model)
+        {
+            return _context.Users.Where(u=>u.Id == id).ExecuteUpdate(setters =>setters.SetProperty(u=>u.FullName, model.FullName)
+            .SetProperty(u=>u.ImagePath,model.CurrentImagePath)) > 0;
         }
     }
 }

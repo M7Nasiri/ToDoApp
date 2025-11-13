@@ -7,6 +7,8 @@ namespace App.Domain.Core.UserAgg.DTOs
     {
         public int Id { get; set; }
         public string UserName { get; set; }
+        public string FullName { get; set; }
+        public string ImagePath { get; set; }
         public string CreatedAtFa { get; set; }
         public string DueDateFa { get; set; }
         public List<GetTaskDto>? Tasks { get; set; }

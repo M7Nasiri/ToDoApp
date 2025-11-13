@@ -1,55 +1,68 @@
 ﻿@using App.Domain.Core.TaskAgg.Enums
 @using App.Domain.Core.UserAgg.DTOs
+@using App.EndPoints.MVC.ToDo.Models.ViewModels.User
 @model UserInfoDto
+
 @{
     ViewData["Title"] = "صفحه مدیریت کاربران";
     Layout = "_CustomLayout";
 }
+
 @section styles {
     <link rel="Stylesheet" type="text/css" href="/css/customCss.css" asp-append-version="true" />
+    <link rel="Stylesheet" type="text/css" href="/css/Grid.css" asp-append-version="true" />
 }
-<div class="aButton">
-    <a asp-controller="Task" asp-action="Create"> ایجاد کار جدید</a>
-</div>
-<div class="table-box">
-    <div class="table-title">لیست کارها</div>
-    <table class="table-modern">
-        <tr>
-            <th>آیدی</th>
-            <th>نام کار</th>
-            <th>توضیحات</th>
-            <th>وضعیت</th>
-            <th>تاریج ایجاد</th>
-            <th>مهلت</th>
-            <th>دسته بندی</th>
-            <th>عملیات</th>
-        </tr>
 
-        @foreach (var item in Model.Tasks)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Title</td>
-                <td>@item.Description</td>
-                <td class="@(item.Status == StatusEnum.Done ? "status-done" : (item.Status == StatusEnum.Waiting ? "status-waiting" : "status-postponed"))">
-                    @(item.Status == StatusEnum.Done ? "انجام شده" : (item.Status == StatusEnum.Waiting ? "در حال انجام" : "به تاخیر افتاده"))
-                </td>
-                <td>@item.CreatedAtFa</td>
-                <td>@item.DueDateFa</td>
-                <td>@item.Category.Title</td>
-                <td>
-                    <a asp-controller="Task" asp-action="Edit" asp-route-Id="@item.Id">ویرایش</a>
-                    |
-                    <a asp-controller="Task" asp-action="Delete" asp-route-Id="@item.Id">حذف</a>
-                </td>
-            </tr>
-        }
-    </table>
-</div>
+<div class="page-layout">
+    <!-- بخش محتوای اصلی -->
+    <div class="content">
+        <div class="aButton">
+            <a asp-controller="Task" asp-action="Create">ایجاد کار جدید</a>
+        </div>
 
-<div class="aButton bg-2">
-    <a asp-action="Edit" asp-route-id="@Model.Id">  ویرایش کاربر </a>
-</div>
-<div class="aButton bg-3">
-    <a asp-action="Delete" asp-route-id="@Model.Id"> حذف کاربر </a>
+        <div class="table-box">
+            <div class="table-title">لیست کارها</div>
+            <table class="table-modern">
+                <tr>
+                    <th>آیدی</th>
+                    <th>نام کار</th>
+                    <th>توضیحات</th>
+                    <th>وضعیت</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>مهلت</th>
+                    <th>دسته بندی</th>
+                    <th>عملیات</th>
+                </tr>
+
+                @foreach (var item in Model.Tasks)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.Description</td>
+                        <td class="@(item.Status == StatusEnum.Done ? "status-done" : (item.Status == StatusEnum.Waiting ? "status-waiting" : "status-postponed"))">
+                            @(item.Status == StatusEnum.Done ? "انجام شده" : (item.Status == StatusEnum.Waiting ? "در حال انجام" : "به تاخیر افتاده"))
+                        </td>
+                        <td>@item.CreatedAtFa</td>
+                        <td>@item.DueDateFa</td>
+                        <td>@item.Category.Title</td>
+                        <td>
+                            <a asp-controller="Task" asp-action="Edit" asp-route-Id="@item.Id">ویرایش</a> |
+                            <a asp-controller="Task" asp-action="Delete" asp-route-Id="@item.Id">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="aButton bg-2">
+            <a asp-action="Edit" asp-route-id="@Model.Id">ویرایش کاربر</a>
+        </div>
+        <div class="aButton bg-3">
+            <a asp-action="Delete" asp-route-id="@Model.Id">حذف کاربر</a>
+        </div>
+    </div>
+
+    <!-- بخش سایدبار -->
+        @await Component.InvokeAsync("UserProfile", new { userId = Model.Id })
 </div>

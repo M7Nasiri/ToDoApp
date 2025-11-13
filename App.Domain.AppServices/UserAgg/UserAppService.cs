@@ -62,5 +62,10 @@ namespace App.Domain.AppServices.UserAgg
             model.Password = pass;
             return _userService.Update(id, model);
         }
+
+        public bool Update(int id, UserProfileDto model)
+        {
+            return _userService.Update(id, model);
+        }
     }
 }

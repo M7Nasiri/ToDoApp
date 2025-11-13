@@ -66,5 +66,10 @@ namespace App.Domain.Services.UserAgg
         {
             return _userRepository.FindIdByUserName(userName);
         }
+
+        public bool Update(int id, UserProfileDto model)
+        {
+            return _userRepository.Update(id, model);   
+        }
     }
 }

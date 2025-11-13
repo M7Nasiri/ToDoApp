@@ -14,7 +14,7 @@ namespace App.Domain.Core.UserAgg.Contracts.Services
 
         bool Delete(int id, DeleteUserDto model);
         bool Update(int id, UpdateUserDto model);
+        bool Update(int id, UserProfileDto model);
         int FindIdByUserName(string userName);
-
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace App.EndPoints.MVC.ToDo.User.ViewModels
+﻿namespace App.EndPoints.MVC.ToDo.Models.ViewModels.User
 {
     public class GetUserViewModel
     {

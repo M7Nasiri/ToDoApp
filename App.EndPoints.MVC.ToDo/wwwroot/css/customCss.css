@@ -296,6 +296,8 @@ footer p {
     border-radius:10px;
     margin-left:10px;
 }
+
+
 .aButton a {
     color: white;
 }
@@ -520,3 +522,87 @@ table-modern {
 .status-postponed {
     background-color:orangered;
 }
+
+/*Sidebar*/
+
+.sidebar-container {
+    width: 250px;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: fixed;
+    right: 20px;
+    top: 100px;
+}
+
+
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+    .profile-image img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #007bff;
+    }
+
+.edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info {
+    margin-top: 15px;
+    text-align: center;
+}
+
+    .profile-info h3 {
+        font-size: 1.1rem;
+        font-family: vbf;
+    }
+
+    .profile-info p {
+        color: gray;
+        font-size: .9rem;
+        margin-bottom: 10px;
+    }
+
+.update-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .3s;
+}
+
+    .update-btn:hover {
+        background-color: #0056b3;
+    }
+
+.content {
+    margin-right: 280px; /* برای اینکه کنار سایدبار قرار بگیره */
+    padding: 20px;
+}
+

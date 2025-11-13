@@ -12,6 +12,7 @@ namespace App.Domain.Core.UserAgg.Contracts.Repositories
         bool IsUserExist(string userName);
         bool Delete(int id);
         bool Update(int id, UpdateUserDto model);
+        bool Update(int id, UserProfileDto model);
         int FindIdByUserName(string userName);
     }
 }
