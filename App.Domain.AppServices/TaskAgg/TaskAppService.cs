@@ -24,6 +24,13 @@ namespace App.Domain.AppServices.TaskAgg
             return _taskService.Delete(dto, id);
         }
 
+        public Result<List<FilterTaskDto>> Filtering(int userId, SearchDto dto)
+        {
+          
+            return _taskService.Filtering(userId, dto);
+
+        }
+
         public Result<List<GetTaskDto>> GetAll(int userId)
         {
             return _taskService.GetAll(userId);

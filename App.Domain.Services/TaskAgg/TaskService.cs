@@ -55,6 +55,11 @@ namespace App.Domain.Services.TaskAgg
             return result;
         }
 
+        public Result<List<FilterTaskDto>> Filtering(int userId, SearchDto dto)
+        {
+            return _taskRepository.Filtering(userId,dto);
+        }
+
         public Result<List<GetTaskDto>> GetAll(int userId)
         {
             var result = _taskRepository.GetAll(userId).Data;

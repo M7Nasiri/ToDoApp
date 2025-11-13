@@ -1,6 +1,6 @@
 ﻿.page-layout {
     display: grid;
-    grid-template-columns: 9fr 3fr; /* ۹ واحد برای محتوا، ۳ واحد برای سایدبار */
+    grid-template-columns: 35fr 3fr; /* ۹ واحد برای محتوا، ۳ واحد برای سایدبار */
     gap: 20px;
     width: 95%;
     margin: 0 auto;

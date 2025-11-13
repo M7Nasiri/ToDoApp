@@ -110,5 +110,48 @@ namespace App.Infra.Data.Repo.Ef.TaskAgg
                 IsSuccess = res
             };
         }
+
+        public Result<List<FilterTaskDto>> Filtering(int userId,SearchDto dto)
+        {
+            IQueryable<MyTask> result = _context.Tasks.Where(t=>t.UserId == userId).Include(t=>t.Category);
+            if (!string.IsNullOrEmpty(dto.Title))
+            {
+                result = result.Where(t => t.Title.Contains(dto.Title));
+            }
+            if (!string.IsNullOrEmpty(dto.CategoryName))
+            {
+                result = result.Where(t=>t.Category.Title.Contains(dto.CategoryName));
+            }
+            switch (dto.SortBy)
+            {
+                case "Title":
+                    result = result.OrderByDescending(t => t.Title);
+                    break;
+                case "DueDate":
+                    result = result.OrderByDescending(t => t.DueDate);
+                    break;
+                
+                case "Status":
+                    result = result.OrderByDescending(t => t.Status);
+                    break;
+            }
+            var res = result.Select(t => new FilterTaskDto
+            {
+                Status = t.Status,
+                DueDate = t.DueDate,
+                CategoryName = t.Category.Title,
+                Title = t.Title,
+                CreatedAt = t.CreatedAt,
+                CreatedAtFa = t.CreatedAtFa,
+                DueDateFa = t.DueDateFa,
+                Id = t.Id,
+                UserId = t.UserId,
+            }).ToList();
+            return new Result<List<FilterTaskDto>> 
+            {
+                IsSuccess = true,
+                Data = res 
+            };
+        }
     }
 }

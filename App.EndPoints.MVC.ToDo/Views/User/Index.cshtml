@@ -1,5 +1,7 @@
-﻿@using App.Domain.Core.TaskAgg.Enums
+﻿@using App.Domain.Core.TaskAgg.DTOs
+@using App.Domain.Core.TaskAgg.Enums
 @using App.Domain.Core.UserAgg.DTOs
+@using App.EndPoints.MVC.ToDo.Models.ViewModels.Task
 @using App.EndPoints.MVC.ToDo.Models.ViewModels.User
 @model UserInfoDto
 
@@ -12,8 +14,54 @@
     <link rel="Stylesheet" type="text/css" href="/css/customCss.css" asp-append-version="true" />
     <link rel="Stylesheet" type="text/css" href="/css/Grid.css" asp-append-version="true" />
 }
-
 <div class="page-layout">
+    
+    <div class="content">
+        <div class="aButton">
+            <a asp-controller="Task" asp-action="Create">ایجاد کار جدید</a>
+        </div>
+
+        <!-- ✅ کامپوننت جستجو و لیست تسک‌ها -->
+        @await Component.InvokeAsync("TaskSearch", new { model = ViewBag.TaskSearchModel })
+
+        <div class="aButton bg-2">
+            <a asp-action="Edit" asp-route-id="@Model.Id">ویرایش کاربر</a>
+        </div>
+        <div class="aButton bg-3">
+            <a asp-action="Delete" asp-route-id="@Model.Id">حذف کاربر</a>
+        </div>
+    </div>
+    @await Component.InvokeAsync("UserProfile", new { userId = Model.Id })
+   
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("searchForm");
+
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault(); // جلوگیری از رفرش کامل صفحه
+
+                const formData = new FormData(form);
+
+                // ارسال Ajax به اکشن
+                const response = await fetch('/User/SearchAndSort', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // گرفتن خروجی ViewComponent (یعنی HTML جدید)
+                const html = await response.text();
+
+                // جایگزینی محتوای کامپوننت با خروجی جدید
+                document.querySelector('.table-box').outerHTML = html;
+            });
+        });
+    </script>
+}
+#<!-- #region name -->
+
+@* <div class="page-layout">
     <!-- بخش محتوای اصلی -->
     <div class="content">
         <div class="aButton">
@@ -64,5 +112,8 @@
     </div>
 
     <!-- بخش سایدبار -->
-        @await Component.InvokeAsync("UserProfile", new { userId = Model.Id })
-</div>
+    @await Component.InvokeAsync("UserProfile", new { userId = Model.Id })
+</div> *@
+
+<!-- #endregion -->
+

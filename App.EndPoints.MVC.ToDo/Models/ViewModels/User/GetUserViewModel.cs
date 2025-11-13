@@ -1,4 +1,6 @@
-﻿namespace App.EndPoints.MVC.ToDo.Models.ViewModels.User
+﻿using App.Domain.Core.TaskAgg.Entities;
+
+namespace App.EndPoints.MVC.ToDo.Models.ViewModels.User
 {
     public class GetUserViewModel
     {
@@ -8,6 +10,6 @@
         public string FullName { get; set; }
         public IFormFile? ImageFile { get; set; }
 
-        public List<Task>? Tasks { get; set; }
+        public List<MyTask>? Tasks { get; set; }
     }
 }

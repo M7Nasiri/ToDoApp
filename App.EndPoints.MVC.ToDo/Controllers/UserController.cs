@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Security.Claims;
 using App.EndPoints.MVC.ToDo.Models.ViewModels.User;
+using App.Domain.Core.TaskAgg.DTOs;
+using App.Domain.Core.UserAgg.Entities;
+using App.EndPoints.MVC.ToDo.Models.ViewModels.Task;
 
 namespace App.EndPoints.MVC.ToDo.Controllers
 {
@@ -31,10 +34,11 @@ namespace App.EndPoints.MVC.ToDo.Controllers
         public IActionResult Index()
         {
             var userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            ViewBag.UserId = userId;
             var userName = User.FindFirstValue(ClaimTypes.Name);
             var user = _userAppService.GetUserById(userId);
             var tasks = _taskAppService.GetAll(userId);
-            var allUserInfo = new UserInfoDto
+            var res  = new UserInfoDto
             {
                 Tasks = tasks.Data,
                 FullName = user.FullName,
@@ -42,7 +46,46 @@ namespace App.EndPoints.MVC.ToDo.Controllers
                 UserName = userName,
                 Id = userId
             };
-            return View(allUserInfo);
+            var dto = new SearchDto { UserId = userId };
+            var filtered = _taskAppService.Filtering(userId, dto);
+
+            var taskSearchModel = new TaskSearchResultViewModel
+            {
+                Search = new SearchModel
+                {
+                    UserId = userId,
+                    Title = "",
+                    CategoryName = "",
+                    SortBy = "Title"
+                },
+                Tasks = filtered.Data
+            };
+            ViewBag.TaskSearchModel = taskSearchModel;
+            return View(res);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SearchAndSort(TaskSearchResultViewModel model)
+        {
+            var userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var dto = new SearchDto
+            {
+                UserId = userId,
+                SortBy = model.Search.SortBy,
+                CategoryName = model.Search.CategoryName,
+                Title = model.Search.Title,
+            };
+
+            var result = _taskAppService.Filtering(userId, dto);
+            var componentModel = new TaskSearchResultViewModel
+            {
+                Search = model.Search,
+                Tasks = result.Data
+            };
+
+            return ViewComponent("TaskSearch", new { model = componentModel });
         }
         public IActionResult Edit(int id)
         {
@@ -153,5 +196,6 @@ namespace App.EndPoints.MVC.ToDo.Controllers
 
             return ViewComponent("UserProfile", new { userId = model.Id }); ;
         }
+
     }
 }

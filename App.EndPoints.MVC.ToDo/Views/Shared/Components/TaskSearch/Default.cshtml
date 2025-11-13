@@ -1,0 +1,132 @@
+﻿@model TaskSearchResultViewModel
+@using App.Domain.Core.TaskAgg.Enums
+@using App.EndPoints.MVC.ToDo.Models.ViewModels.Task
+
+<div class="table-box">
+    <div class="table-title">جستجو و لیست کارها</div>
+
+    <!-- فرم جستجو -->
+    <form id="searchForm" method="post" asp-controller="User" asp-action="SearchAndSort" class="form-group" style="margin-bottom:20px;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Search.UserId" value="@Model.Search.UserId" />
+        <input type="text" asp-for="Search.Title" value="@Model.Search.Title" />
+        <input type="text" asp-for="Search.CategoryName" value="@Model.Search.CategoryName" />
+        <select asp-for="Search.SortBy">
+            <option value="Title">عنوان</option>
+            <option value="DueDate">تاریخ سررسید</option>
+            <option value="Status">وضعیت</option>
+        </select>
+        <button type="submit">اعمال</button>
+    </form>
+
+
+    
+
+    <!-- جدول نمایش تسک‌ها -->
+    <table class="table-modern">
+        <tr>
+            <th>آیدی</th>
+            <th>عنوان</th>
+            <th>وضعیت</th>
+            <th>تاریخ ایجاد</th>
+            <th>تاریخ سررسید</th>
+            <th>دسته‌بندی</th>
+        </tr>
+
+        @if (Model != null && Model.Tasks?.Any() == true)
+        {
+            @foreach (var item in Model.Tasks)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td class="@(item.Status == StatusEnum.Done ? "status-done" : (item.Status == StatusEnum.Waiting ? "status-waiting" : "status-postponed"))">
+                        @(item.Status == StatusEnum.Done ? "انجام شده" : (item.Status == StatusEnum.Waiting ? "در حال انجام" : "به تاخیر افتاده"))
+                    </td>
+                    <td>@item.CreatedAtFa</td>
+                    <td>@item.DueDateFa</td>
+                    <td>@item.CategoryName</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="6" style="text-align:center;">هیچ کاری یافت نشد</td></tr>
+        }
+    </table>
+</div>
+
+
+
+
+
+
+@* @model SearchModel
+@using App.Domain.Core.TaskAgg.DTOs
+@using App.Domain.Core.TaskAgg.Enums
+@using App.Domain.Core.UserAgg.DTOs
+@using App.EndPoints.MVC.ToDo.Models.ViewModels.Task
+@using App.Infra.Data.Tools;
+<div class="table-box">
+<div class="table-title">جستجو و لیست کارها</div>
+    @{
+        var data = TempData["AllUserInfo"] as List<FilterTaskDto>;
+    }
+    <!-- 🔍 فرم جستجو -->
+     <form method="post" asp-controller="User" asp-action="SearchAndSort"  class="form-group" style="margin-bottom:20px;">
+        <input type="hidden" name="userId" value="@ViewBag.UserId" />
+
+        <input type="text" asp-for="@Model.Title" placeholder="جستجو بر اساس عنوان..." class="input-style" value="" />
+        <input type="text" asp-for="@Model.CategoryName" placeholder="جستجو بر اساس دسته‌بندی..." class="input-style" value="" />
+
+        <select name="orderByType" class="input-style">
+            <option value="Title" selected="@("Title" == Context.Request.Query["orderByType"])">مرتب‌سازی بر اساس عنوان</option>
+            <option value="DueDate" selected="@("DueDate" == Context.Request.Query["orderByType"])">مرتب‌سازی بر اساس تاریخ سررسید</option>
+            <option value="Status" selected="@("Status" == Context.Request.Query["orderByType"])">مرتب‌سازی بر اساس وضعیت</option>
+        </select> 
+        <select asp-for="SortBy" class="input-style">
+            <option value="Title">مرتب‌سازی بر اساس عنوان</option>
+            <option value="DueDate" >مرتب‌سازی بر اساس تاریخ سررسید</option>
+            <option value="Status" >مرتب‌سازی بر اساس وضعیت</option>
+        </select>
+
+        <button type="submit">اعمال</button>
+     </form>  
+
+    <!-- 📋 جدول نمایش -->
+    <table class="table-modern">
+        <tr>
+            <th>آیدی</th>
+            <th>عنوان</th>
+            <th>وضعیت</th>
+            <th>تاریخ ایجاد</th>
+            <th>تاریخ سررسید</th>
+            <th>دسته‌بندی</th>
+            <th>عملیات</th>
+        </tr>
+        @if (data != null)
+        {
+
+            @foreach (var item in data)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td class="@(item.Status == StatusEnum.Done ? "status-done" : (item.Status == StatusEnum.Waiting ? "status-waiting" : "status-postponed"))">
+                        @(item.Status == StatusEnum.Done ? "انجام شده" : (item.Status == StatusEnum.Waiting ? "در حال انجام" : "به تاخیر افتاده"))
+                    </td>
+                    <td>@item.CreatedAt.ToPersianString()</td>
+                    <td>@item.DueDate.ToPersianString()</td>
+                    <td>@item.CategoryName</td>
+                    <td><a asp-action="Edit" asp-controller="Task" asp-route-id=@item.Id>ویرایش</a>|<a asp-action="Delete" asp-controller="Task" asp-route-id=@item.Id>حذف</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" style="text-align:center;">هیچ کاری یافت نشد.</td>
+            </tr>
+        }
+    </table>
+</div> *@

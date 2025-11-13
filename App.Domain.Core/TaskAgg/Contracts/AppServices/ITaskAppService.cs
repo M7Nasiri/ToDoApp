@@ -15,5 +15,7 @@ namespace App.Domain.Core.TaskAgg.Contracts.AppServices
         public Result<bool> Delete(DeleteTaskDto dto, int id);
         public Result<List<GetTaskDto>> GetAll(int userId);
         public Result<GetTaskDto> GetById(int id);
+        Result<List<FilterTaskDto>> Filtering(int userId, SearchDto dto);
+
     }
 }
