@@ -22,15 +22,17 @@ namespace App.Domain.Services.TaskAgg
             dto.DueDateFa = dto.DueDate.ToPersianString("yyyy/MM/dd");
 
 
+
             var result = new Result<bool>();
-            if (_taskRepository.Add(dto).IsSuccess)
+            var res = _taskRepository.Add(dto);
+            if (res.IsSuccess)
             {
                 result.Message = "تسک جدید با موفقیت اضافه شد .";
                 result.IsSuccess = true;
             }
             else
             {
-                result.Message = "تسک اضافه نشد .";
+                result.Message = res.Message;
                 result.IsSuccess = false;
             }
             return result;

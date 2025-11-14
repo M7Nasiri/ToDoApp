@@ -6,7 +6,20 @@
     <div class="table-title">جستجو و لیست کارها</div>
 
     <!-- فرم جستجو -->
-    <form id="searchForm" method="post" asp-controller="User" asp-action="SearchAndSort" class="form-group" style="margin-bottom:20px;">
+@*     <form id="searchForm" method="post" asp-controller="User" asp-action="SearchAndSort" class="form-group" style="margin-bottom:20px;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Search.UserId" value="@Model.Search.UserId" />
+        <input type="text" asp-for="Search.Title" value="@Model.Search.Title" />
+        <input type="text" asp-for="Search.CategoryName" value="@Model.Search.CategoryName" />
+        <select asp-for="Search.SortBy">
+            <option value="Title">عنوان</option>
+            <option value="DueDate">تاریخ سررسید</option>
+            <option value="Status">وضعیت</option>
+        </select>
+        <button type="submit">اعمال</button>
+    </form> *@
+
+    <form id="searchForm" method="post" asp-controller="User" asp-action="SearchAndSort" class="form-group">
         @Html.AntiForgeryToken()
         <input type="hidden" asp-for="Search.UserId" value="@Model.Search.UserId" />
         <input type="text" asp-for="Search.Title" value="@Model.Search.Title" />
@@ -31,6 +44,7 @@
             <th>تاریخ ایجاد</th>
             <th>تاریخ سررسید</th>
             <th>دسته‌بندی</th>
+            <th>عملیات</th>
         </tr>
 
         @if (Model != null && Model.Tasks?.Any() == true)
@@ -46,6 +60,11 @@
                     <td>@item.CreatedAtFa</td>
                     <td>@item.DueDateFa</td>
                     <td>@item.CategoryName</td>
+                    <td>
+                        <a asp-controller="Task" asp-action="Edit" asp-route-Id="@item.Id">ویرایش</a>
+                        |
+                        <a asp-controller="Task" asp-action="Delete" asp-route-Id="@item.Id">حذف</a>
+                    </td>
                 </tr>
             }
         }

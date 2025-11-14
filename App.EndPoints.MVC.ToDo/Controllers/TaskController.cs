@@ -42,6 +42,13 @@ namespace App.EndPoints.MVC.ToDo.Controllers
             }
             dto.UserId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var res = _taskAppService.Add(dto);
+            if (!res.IsSuccess)
+            {
+                ViewBag.Cats = new SelectList(_catAppService.GetAll(), "Id", "Title");
+                ViewBag.Message = res.Message;
+                return View(dto);
+
+            }
             return RedirectToAction("Index", "User");
         }
 

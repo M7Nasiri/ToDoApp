@@ -35,29 +35,66 @@
    
 </div>
 @section Scripts {
+
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+
+        function attachSearchFormHandler() {
+
             const form = document.getElementById("searchForm");
+            if (!form) return;
 
             form.addEventListener("submit", async function (e) {
-                e.preventDefault(); // جلوگیری از رفرش کامل صفحه
+                e.preventDefault();
 
                 const formData = new FormData(form);
 
-                // ارسال Ajax به اکشن
                 const response = await fetch('/User/SearchAndSort', {
                     method: 'POST',
                     body: formData
                 });
 
-                // گرفتن خروجی ViewComponent (یعنی HTML جدید)
                 const html = await response.text();
 
-                // جایگزینی محتوای کامپوننت با خروجی جدید
-                document.querySelector('.table-box').outerHTML = html;
+                const target = document.querySelector('.table-box');
+                if (target) {
+                    target.outerHTML = html;
+                }
+
+                // ❗ بعد از تعویض ویو، لیسنر را دوباره ثبت کن
+                attachSearchFormHandler();
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", attachSearchFormHandler);
+
+    </script>
+
+   @*  <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const form = document.getElementById("searchForm");
+
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault(); // بسیار مهم
+
+                const formData = new FormData(form);
+
+                const response = await fetch('/User/SearchAndSort', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const html = await response.text();
+
+                const target = document.querySelector('.table-box');
+                if (target) {
+                    target.outerHTML = html;
+                }
             });
         });
-    </script>
+    </script> *@
+
+  
 }
 #<!-- #region name -->
 

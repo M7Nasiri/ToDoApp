@@ -4,6 +4,7 @@ using App.Domain.Core.TaskAgg.DTOs;
 using App.Domain.Core.TaskAgg.Entities;
 using App.Infra.Data.Db.SqlServer.Ef.DbCtx;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
 namespace App.Infra.Data.Repo.Ef.TaskAgg
 {
@@ -16,6 +17,7 @@ namespace App.Infra.Data.Repo.Ef.TaskAgg
         }
         public Result<bool> Add(AddTaskDto dto)
         {
+            var result = new Result<bool>();
             var task = new MyTask
             {
                 CategoryId = dto.CategoryId,
@@ -30,6 +32,12 @@ namespace App.Infra.Data.Repo.Ef.TaskAgg
                 CreatedAtFa = dto.CreateAtFa,
                 DueDateFa = dto.DueDateFa,
             };
+            if (dto.CreatedAt > dto.DueDate)
+            {
+                result.Message = "مهلت انجام نمی تواند کمتر از تاریخ فعلی باشد.";
+                result.IsSuccess = false;
+                return result;
+            }
             _context.Add(task);
             var res = _context.SaveChanges() > 0;
             return new Result<bool>
